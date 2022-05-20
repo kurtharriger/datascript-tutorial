@@ -93,13 +93,13 @@ datascript.transit/write-handlers
 
 ## Querying on a missing attribute
 
-Until DataScript supports `not` clause, use a combination of `get-else` and `nil?` predicate to find out entities which _do not have_ some attribute:
+Until DataScript supports `not` clause, use a combination of `get-else` and an arbitrary default value to find out entities which _do not have_ some attribute:
 
 ```clj
 (d/q '[:find ?e
        :where [?e :document/id _]
-              [(get-else $ ?e :document/users nil) ?u]
-              [(nil? ?u)]]
+              [(get-else $ ?e :document/users :none) ?u]
+              [(= :none ?u)]]
      db)
 ```
 
